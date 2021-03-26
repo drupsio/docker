@@ -2,6 +2,10 @@
 
 Development Docker stack for Drups.io
 
+[![GitHub release](https://img.shields.io/github/release/drupsio/docker.svg)](https://github.com/drupsio/docker/releases)
+[![GitHub license](https://img.shields.io/github/license/drupsio/docker.svg)](https://github.com/drupsio/docker/blob/0.x/LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/drupsio-docker/badge/?version=latest)](https://drupsio.rtfd.io/projects/docker/)
+
 ## Installation
 
 ## Usage
