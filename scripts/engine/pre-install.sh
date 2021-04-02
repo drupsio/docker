@@ -11,7 +11,6 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "${DIR}"/../../.env
-source "${DIR}"/../styles.env
 
 ENV_LOCAL_PATH="${DIR}/../../environments/engine/.env.local"
 ENV_LOCAL_DEST="${ENGINE_DIR}/.env.local"

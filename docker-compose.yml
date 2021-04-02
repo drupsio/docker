@@ -22,6 +22,32 @@ services:
       && celery -A drups worker --loglevel=DEBUG -E
       || tail -F /dev/null"
 
+  application_back:
+    image: node:$BACK_NODE_TAG
+    container_name: "${PROJECT_NAME}_application_back"
+    working_dir: /var/www/html/packages/api
+    labels:
+      - "traefik.http.services.${PROJECT_NAME}_application_back.loadbalancer.server.port=4000"
+      - "traefik.http.routers.${PROJECT_NAME}_application_back.rule=Host(`${APPLICATION_BACK_URL}`)"
+    expose:
+      - "4000"
+    volumes:
+      - ./${APPLICATION_DIR}:/var/www/html
+    command: bash -c 'yarn run dev || echo ""'
+
+  application_front:
+    image: node:$BACK_NODE_TAG
+    container_name: "${PROJECT_NAME}_application_front"
+    working_dir: /var/www/html/packages/client
+    labels:
+      - "traefik.http.services.${PROJECT_NAME}_application_front.loadbalancer.server.port=3000"
+      - "traefik.http.routers.${PROJECT_NAME}_application_front.rule=Host(`${APPLICATION_FRONT_URL}`)"
+    expose:
+      - "3000"
+    volumes:
+      - ./${APPLICATION_DIR}:/var/www/html
+    command: bash -c 'yarn run dev || echo ""'
+
   rabbitmq:
     image: rabbitmq:$RABBITMQ_TAG
     container_name: "${PROJECT_NAME}_rabbitmq"

@@ -16,7 +16,7 @@ source "${DIR}"/functions.sh
 
 clear
 
-TOTAL_STEPS=2
+TOTAL_STEPS=3
 CURRENT_STEP=0
 
 echo -e "${COLOR_GREEN}Welcome to ${PROJECT_NAME} installer! ${COLOR_NONE}\n\n\n"
@@ -26,7 +26,9 @@ CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Cloning Engine repository...\n\v${COLOR_NONE}"
 clone_repository "${ENGINE_GIT_REPO}" "${ENGINE_GIT_BRANCH}" "${ENGINE_DIR}"
 
-# @todo implement Application cloning.
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Cloning Application repository...\n\v${COLOR_NONE}"
+clone_repository "${APPLICATION_GIT_REPO}" "${APPLICATION_GIT_BRANCH}" "${APPLICATION_DIR}"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Restarting containers...\n\v${COLOR_NONE}"

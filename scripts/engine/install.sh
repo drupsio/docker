@@ -10,7 +10,6 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source "${DIR}"/../../.env
 source "${DIR}"/../styles.env
 
 TOTAL_STEPS=3
