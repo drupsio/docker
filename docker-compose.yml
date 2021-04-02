@@ -1,0 +1,35 @@
+# This file is part of the Drups.io Docker.
+#
+# (c) 2021 Drups.io <dev@drups.io>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+# Written by Temuri Takalandze <temo@drups.io>, April 2021
+
+version: "3.7"
+
+services:
+  rabbitmq:
+    image: rabbitmq:$RABBITMQ_TAG
+    container_name: "${PROJECT_NAME}_rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: $RABBITMQ_USER
+      RABBITMQ_DEFAULT_PASS: $RABBITMQ_PASS
+    labels:
+      - "traefik.http.services.${PROJECT_NAME}_rabbitmq_management_ui.loadbalancer.server.port=15672"
+      - "traefik.http.routers.${PROJECT_NAME}_rabbitmq_management_ui.rule=Host(`${RABBITMQ_URL}`)"
+
+  redis:
+    image: redis:$REDIS_TAG
+    container_name: "${PROJECT_NAME}_redis"
+
+  traefik:
+    image: traefik:v2.0
+    container_name: "${PROJECT_NAME}_traefik"
+    command: --api.insecure=true --providers.docker
+    ports:
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
