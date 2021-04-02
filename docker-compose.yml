@@ -16,7 +16,11 @@ services:
     working_dir: /var/app
     volumes:
       - ./${ENGINE_DIR}:/var/app
-    command: tail -F /dev/null
+    command: >
+      bash -c "mkdir -p /var/log/drups
+      && touch /var/log/drups/worker.log
+      && celery -A drups worker --loglevel=DEBUG -E
+      || tail -F /dev/null"
 
   rabbitmq:
     image: rabbitmq:$RABBITMQ_TAG

@@ -13,7 +13,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${DIR}"/../../.env
 source "${DIR}"/../styles.env
 
-TOTAL_STEPS=2
+TOTAL_STEPS=3
 CURRENT_STEP=0
 
 echo -e "${COLOR_GREEN} Installing Engine...${COLOR_NONE}\n"
@@ -25,3 +25,7 @@ sh "${DIR}/pre-install.sh"
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Running pip install...\n\v${COLOR_NONE}"
 docker-compose exec engine pip install -r requirements/dev.txt
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Running Celery process...\n\v${COLOR_NONE}"
+docker-compose exec -d engine celery -A drups worker --loglevel=DEBUG -E
