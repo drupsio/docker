@@ -10,6 +10,14 @@
 version: "3.7"
 
 services:
+  engine:
+    image: python:$PYTHON_TAG
+    container_name: "${PROJECT_NAME}_engine"
+    working_dir: /var/app
+    volumes:
+      - ./${ENGINE_DIR}:/var/app
+    command: tail -F /dev/null
+
   rabbitmq:
     image: rabbitmq:$RABBITMQ_TAG
     container_name: "${PROJECT_NAME}_rabbitmq"

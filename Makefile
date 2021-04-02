@@ -64,7 +64,7 @@ info:
 ##		You can optionally pass an argument with a service name to open a shell on the specified container
 .PHONY: shell
 shell:
-	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'engine')' --format "{{ .ID }}") sh
+	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'engine')' --format "{{ .ID }}") bash
 
 ## logs	:	View containers logs.
 ##		You can optinally pass an argument with the service name to limit logs
@@ -73,6 +73,12 @@ shell:
 .PHONY: logs
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
+
+## install	:	Run the project installer.
+.PHONY: install
+install:
+	@./scripts/install.sh
+	@make info
 
 # https://stackoverflow.com/a/6273809/1826109
 %:

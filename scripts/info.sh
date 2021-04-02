@@ -8,7 +8,6 @@
 #
 # Written by Temuri Takalandze <temo@drups.io>, April 2021
 
-
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "${DIR}"/../.env
