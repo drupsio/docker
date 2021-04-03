@@ -33,7 +33,7 @@ services:
       - "4000"
     volumes:
       - ./${APPLICATION_DIR}:/var/www/html
-    command: bash -c 'yarn run dev || echo ""'
+    command: bash -c 'yarn run dev || tail -F /dev/null'
 
   application_front:
     image: node:$BACK_NODE_TAG
@@ -46,7 +46,7 @@ services:
       - "3000"
     volumes:
       - ./${APPLICATION_DIR}:/var/www/html
-    command: bash -c 'yarn run dev || echo ""'
+    command: bash -c 'yarn run dev || tail -F /dev/null'
 
   rabbitmq:
     image: rabbitmq:$RABBITMQ_TAG
