@@ -80,9 +80,9 @@ install:
 	@./scripts/install.sh
 	@make info
 
-## restart-celery	:	Restart the celery process inside of `engine` container.
-.PHONY: restart-celery
-restart-celery:
+## restart-engine	:	Restart the celery process inside of `engine` container.
+.PHONY: restart-engine
+restart-engine:
 	@./scripts/engine/restart.sh
 
 # https://stackoverflow.com/a/6273809/1826109
