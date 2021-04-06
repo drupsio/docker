@@ -31,7 +31,7 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = u'Drups.io Docker Docs'
+project = u'Drups.io Docker'
 copyright = u'2021, Drups.io'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -184,7 +184,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'DrupsIoDockerDocs.tex', u'Drups.io Docker Docs', u'Drups.io', 'manual'),
+  ('index', 'DrupsIoDockerDocs.tex', u'Drups.io Docker', u'Drups.io', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -213,7 +213,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'drupsiodockerdocs', u'Drups.io Docker Docs', [u'Drups.io'], 1)
+    ('index', 'drupsiodockerdocs', u'Drups.io Docker', [u'Drups.io'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -226,8 +226,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'DrupsIoDockerDocs', u'Drups.io Docker Docs', u'Drups.io',
-  'DrupsIoDockerDocs', 'Drups.io Docker Docs', 'Development'),
+  ('index', 'DrupsIoDockerDocs', u'Drups.io Docker', u'Drups.io',
+  'DrupsIoDockerDocs', 'Drups.io Docker', 'Development'),
 ]
 
 # Documents to append as an appendix to all manuals.
