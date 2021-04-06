@@ -14,13 +14,10 @@ source "${DIR}"/../.env
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-clear
-
 TOTAL_STEPS=3
 CURRENT_STEP=0
 
-echo -e "${COLOR_GREEN}Welcome to ${PROJECT_NAME} installer! ${COLOR_NONE}\n\n\n"
-echo -e "${COLOR_GREEN}Preparing for installation...${COLOR_NONE}\n"
+echo -e "${COLOR_GREEN} Preparing for installation...${COLOR_NONE}\n"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Cloning Engine repository...\n\v${COLOR_NONE}"

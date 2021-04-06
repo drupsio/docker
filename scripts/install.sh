@@ -10,6 +10,13 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+source "${DIR}"/../.env
+source "${DIR}"/styles.env
+
+clear
+
+echo -e "${COLOR_GREEN}Welcome to ${PROJECT_NAME} installer! ${COLOR_NONE}\n\n\n"
+
 # Pre-installation steps.
 sh "${DIR}/pre-install.sh"
 

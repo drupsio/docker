@@ -83,8 +83,7 @@ install:
 ## restart-celery	:	Restart the celery process inside of `engine` container.
 .PHONY: restart-celery
 restart-celery:
-	@docker-compose exec engine ps -ef | grep 'celery' | grep -v grep | awk '{print $2}' | xargs -r kill -9
-	@docker-compose exec -d engine celery -A drups worker --loglevel=DEBUG -E
+	@./scripts/engine/restart.sh
 
 # https://stackoverflow.com/a/6273809/1826109
 %:
