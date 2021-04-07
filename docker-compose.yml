@@ -16,6 +16,7 @@ services:
     working_dir: /var/app
     volumes:
       - ./${ENGINE_DIR}:/var/app
+      - ./certs/docker/client:/certs/docker/client
     command: >
       bash -c "mkdir -p /var/log/drups
       && touch /var/log/drups/worker.log
@@ -69,6 +70,16 @@ services:
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
+
+  docker:
+    image: docker:$DOCKER_TAG
+    container_name: "${PROJECT_NAME}_docker"
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: ./certs
+    volumes:
+      - ./certs/docker/ca:/certs/ca
+      - ./certs/docker/client:/certs/client
 
   traefik:
     image: traefik:v2.0
