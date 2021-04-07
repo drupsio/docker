@@ -18,6 +18,12 @@ Development Docker stack for Drups.io
 | Postgres             | `postgres`             | [_/postgres]    |
 | Traefik              | `traefik`              | [_/traefik]     |
 
+## Requirements
+
+- `Docker`
+- `Docker Compose`
+- `GNU Make`
+
 ## Installation
 
 - Clone the repository: `git clone git@github.com:drupsio/docker.git`
