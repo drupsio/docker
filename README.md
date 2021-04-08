@@ -16,6 +16,8 @@ Development Docker stack for Drups.io
 | RabbitMQ             | `rabbitmq`             | [_/rabbitmq]    |
 | Redis                | `redis`                | [_/redis]       |
 | Postgres             | `postgres`             | [_/postgres]    |
+| Docker               | `docker`               | [_/docker]    |
+| Docker Registry      | `registry.loc`         | [_/registry]    |
 | Traefik              | `traefik`              | [_/traefik]     |
 
 ## Requirements
@@ -23,6 +25,7 @@ Development Docker stack for Drups.io
 - `Docker`
 - `Docker Compose`
 - `GNU Make`
+- `OpenSSL`
 
 ## Installation
 
@@ -85,4 +88,6 @@ Released under the [MIT](LICENSE) license.
 [_/rabbitmq]: https://hub.docker.com/_/rabbitmq
 [_/redis]: https://hub.docker.com/_/redis
 [_/postgres]: https://hub.docker.com/_/postgres
+[_/docker]: https://hub.docker.com/_/docker
+[_/registry]: https://hub.docker.com/_/registry
 [_/traefik]: https://hub.docker.com/_/traefik
