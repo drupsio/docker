@@ -14,7 +14,7 @@ source "${DIR}"/../.env
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=4
+TOTAL_STEPS=5
 CURRENT_STEP=0
 
 CERTS_DIR="${DIR}"/../certs
@@ -47,3 +47,7 @@ echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Restarting containers
 docker-compose stop
 docker-compose pull
 docker-compose up -d --remove-orphans
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Adding registry.loc to /etc/hosts...\n\v${COLOR_NONE}"
+sh "${DIR}/registry/update_hosts.sh"

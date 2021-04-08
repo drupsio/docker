@@ -27,7 +27,7 @@ clone_repository() {
 }
 
 get_container_ip() {
-  IP=$(docker inspect --format='{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "${PROJECT_NAME}_${1}")
+  IP=$(docker inspect --format='{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "${1}")
 
   echo "$IP"
 }

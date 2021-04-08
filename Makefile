@@ -22,6 +22,7 @@ up:
 	@echo "Starting up containers for $(PROJECT_NAME)..."
 	docker-compose pull
 	docker-compose up -d --remove-orphans
+	@make update-hosts
 	@make info
 
 ## down		:	Stop containers.
@@ -33,6 +34,7 @@ down: stop
 start:
 	@echo "Starting containers for $(PROJECT_NAME) from where you left off..."
 	@docker-compose start
+	@make update-hosts
 	@make info
 
 ## stop		:	Stop containers.
@@ -84,6 +86,11 @@ install:
 .PHONY: restart-engine
 restart-engine:
 	@./scripts/engine/restart.sh
+
+## update-hosts	:	Write container IPs to /etc/hosts.
+.PHONY: update-hosts
+update-hosts:
+	@./scripts/registry/update_hosts.sh
 
 # https://stackoverflow.com/a/6273809/1826109
 %:
