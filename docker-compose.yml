@@ -80,6 +80,20 @@ services:
     volumes:
       - ./certs/docker/ca:/certs/ca
       - ./certs/docker/client:/certs/client
+      - ./certs/registry/crt:/etc/docker/certs.d/registry.loc
+
+  registry.loc:
+    image: registry:$DOCKER_REGISTRY_TAG
+    container_name: "${PROJECT_NAME}_registry"
+    environment:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/crt/ca.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/key/ca.key
+    volumes:
+      - ./certs/registry/crt:/certs/crt
+      - ./certs/registry/key:/certs/key
+    expose:
+      - "443"
 
   traefik:
     image: traefik:v2.0
