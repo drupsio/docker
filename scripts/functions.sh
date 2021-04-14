@@ -31,3 +31,47 @@ get_container_ip() {
 
   echo "$IP"
 }
+
+check_command() {
+  COMMAND=$1
+  RECOMMENDED=$2
+
+  if ! command -v "$COMMAND" &>/dev/null; then
+    if [ "$RECOMMENDED" != 1 ]; then
+      echo -e "${COLOR_RED}Command ${COMMAND} could not be found!${COLOR_NONE}\n"
+      exit 1
+    fi
+
+    echo -e "${COLOR_YELLOW}Command ${COMMAND} is recommend, but could not be found!${COLOR_NONE}\n"
+    return 0
+  fi
+
+  echo -e "${COLOR_GREEN}Command ${COMMAND} exists!${COLOR_NONE}\n"
+}
+
+check_port() {
+  PORT=$1
+  MATCH=$(sudo netstat -tulpn | grep ":${PORT}")
+
+  if [ -n "${MATCH}" ]; then
+    echo -e "${COLOR_RED}Port ${PORT} in use!${COLOR_NONE}\n"
+    exit 1
+  fi
+
+  echo -e "${COLOR_GREEN}Port ${PORT} not in use!${COLOR_NONE}\n"
+}
+
+die() {
+  echo -e "${COLOR_RED}${1}${COLOR_NONE}"
+  exit 1
+}
+
+check_k8s_cluster() {
+  MATCH=$(kubectl cluster-info)
+  if [[ $MATCH == *"is running"* ]]; then
+    echo -e "${COLOR_GREEN}Kubernetes Cluster is running!${COLOR_NONE}\n"
+  else
+    echo -e "${COLOR_RED}Kubernetes Cluster is not running!${COLOR_NONE}\n"
+    exit 1
+  fi
+}

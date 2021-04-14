@@ -14,12 +14,16 @@ source "${DIR}"/../.env
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=5
+TOTAL_STEPS=6
 CURRENT_STEP=0
 
 CERTS_DIR="${DIR}"/../certs
 
-echo -e "${COLOR_GREEN} Preparing for installation...${COLOR_NONE}\n"
+echo -e "${COLOR_GREEN} Running pre-install steps...${COLOR_NONE}\n"
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking requirements...\n\v${COLOR_NONE}"
+sh "${DIR}/check-requirements.sh" || die "Unable to process installation! Please, check the requirements."
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Cloning Engine repository...\n\v${COLOR_NONE}"
@@ -42,6 +46,12 @@ openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes \
 sudo mkdir /etc/docker/certs.d/registry.loc -p
 sudo cp "${CERTS_DIR}"/registry/crt/ca.crt /etc/docker/certs.d/registry.loc/
 
+# Make self-signed certificate trusted for Kubernetes.
+kubectl delete -n kube-system daemonset registry-ca
+kubectl delete -n kube-system secret registry-ca
+kubectl create secret generic registry-ca --namespace kube-system --from-file=registry-ca="${CERTS_DIR}"/registry/crt/ca.crt
+kubectl create -f "${DIR}"/../environments/registry/registry-ca-ds.yaml
+
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Restarting containers...\n\v${COLOR_NONE}"
 docker-compose stop
@@ -50,4 +60,4 @@ docker-compose up -d --remove-orphans
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Adding registry.loc to /etc/hosts...\n\v${COLOR_NONE}"
-sh "${DIR}/registry/update_hosts.sh"
+sh "${DIR}/registry/update-hosts.sh"

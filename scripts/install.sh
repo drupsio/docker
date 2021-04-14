@@ -12,13 +12,14 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "${DIR}"/../.env
 source "${DIR}"/styles.env
+source "${DIR}"/functions.sh
 
 clear
 
 echo -e "${COLOR_GREEN}Welcome to ${PROJECT_NAME} installer! ${COLOR_NONE}\n\n\n"
 
 # Pre-installation steps.
-sh "${DIR}/pre-install.sh"
+sh "${DIR}/pre-install.sh" || die "Stopping installation process..."
 
 echo -e "\n\n"
 
@@ -29,3 +30,8 @@ echo -e "\n\n"
 
 # Install Application.
 sh "${DIR}/application/install.sh"
+
+echo -e "\n\n"
+
+# Post-installation steps.
+sh "${DIR}/post-install.sh"

@@ -80,7 +80,6 @@ logs:
 .PHONY: install
 install:
 	@./scripts/install.sh
-	@make info
 
 ## restart-engine	:	Restart the celery process inside of `engine` container.
 .PHONY: restart-engine
@@ -90,7 +89,7 @@ restart-engine:
 ## update-hosts	:	Write container IPs to /etc/hosts.
 .PHONY: update-hosts
 update-hosts:
-	@./scripts/registry/update_hosts.sh
+	@./scripts/registry/update-hosts.sh
 
 # https://stackoverflow.com/a/6273809/1826109
 %:
