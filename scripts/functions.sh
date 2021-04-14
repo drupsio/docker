@@ -75,3 +75,10 @@ check_k8s_cluster() {
     exit 1
   fi
 }
+
+run_k8s_dashboard() {
+  sudo mkdir /var/log/kubectl -p
+  sudo touch /var/log/kubectl/proxy.log
+  sudo chown "$USER:$USER" /var/log/kubectl/proxy.log
+  kubectl proxy --address='0.0.0.0' --port=8181 --disable-filter=true </var/log/kubectl/proxy.log &>>/var/log/kubectl/proxy.log &
+}

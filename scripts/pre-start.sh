@@ -16,12 +16,12 @@ source "${DIR}"/functions.sh
 TOTAL_STEPS=2
 CURRENT_STEP=0
 
-echo -e "${COLOR_GREEN} Running post-install steps...${COLOR_NONE}\n"
+echo -e "${COLOR_GREEN}\nRunning pre-start steps...${COLOR_NONE}\n"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Running Kubernetes Dashboard...\n\v${COLOR_NONE}"
-run_k8s_dashboard
+echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Traefik port...\n${COLOR_NONE}"
+check_port "80"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Running info script...\n\v${COLOR_NONE}"
-sh "${DIR}/info.sh"
+echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Kubernetes Dashboard port...\n${COLOR_NONE}"
+check_port "8181"

@@ -13,14 +13,18 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=2
+TOTAL_STEPS=3
 CURRENT_STEP=0
 
-echo -e "${COLOR_GREEN} Running post-install steps...${COLOR_NONE}\n"
+echo -e "${COLOR_GREEN}\nRunning post-start steps...${COLOR_NONE}\n"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Running Kubernetes Dashboard...\n\v${COLOR_NONE}"
 run_k8s_dashboard
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Updating hosts...\n\v${COLOR_NONE}"
+make update-hosts
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Running info script...\n\v${COLOR_NONE}"

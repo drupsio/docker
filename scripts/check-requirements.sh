@@ -14,7 +14,7 @@ source "${DIR}"/../.env
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=8
+TOTAL_STEPS=9
 CURRENT_STEP=0
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
@@ -44,6 +44,10 @@ check_command "minikube" 1
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Kubernetes Cluster...\n${COLOR_NONE}"
 check_k8s_cluster
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Traefik port...\n${COLOR_NONE}"
+check_port "80"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Kubernetes Dashboard port...\n${COLOR_NONE}"

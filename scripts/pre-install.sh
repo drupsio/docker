@@ -14,12 +14,16 @@ source "${DIR}"/../.env
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=6
+TOTAL_STEPS=7
 CURRENT_STEP=0
 
 CERTS_DIR="${DIR}"/../certs
 
 echo -e "${COLOR_GREEN} Running pre-install steps...${COLOR_NONE}\n"
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Stopping containers...\n\v${COLOR_NONE}"
+docker-compose stop
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking requirements...\n\v${COLOR_NONE}"
@@ -53,8 +57,7 @@ kubectl create secret generic registry-ca --namespace kube-system --from-file=re
 kubectl create -f "${DIR}"/../environments/registry/registry-ca-ds.yaml
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Restarting containers...\n\v${COLOR_NONE}"
-docker-compose stop
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Starting containers...\n\v${COLOR_NONE}"
 docker-compose pull
 docker-compose up -d --remove-orphans
 

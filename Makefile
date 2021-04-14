@@ -20,10 +20,10 @@ help : Makefile
 .PHONY: up
 up:
 	@echo "Starting up containers for $(PROJECT_NAME)..."
+	@./scripts/pre-start.sh
 	docker-compose pull
 	docker-compose up -d --remove-orphans
-	@make update-hosts
-	@make info
+	@./scripts/post-start.sh
 
 ## down		:	Stop containers.
 .PHONY: down
@@ -33,10 +33,9 @@ down: stop
 .PHONY: start
 start:
 	@echo "Starting containers for $(PROJECT_NAME) from where you left off..."
+	@./scripts/pre-start.sh
 	@docker-compose start
-	@make update-hosts
-	@make info
-
+	@./scripts/post-start.sh
 ## stop		:	Stop containers.
 .PHONY: stop
 stop:
