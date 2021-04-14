@@ -17,6 +17,11 @@ services:
     volumes:
       - ./${ENGINE_DIR}:/var/app
       - ./certs/docker/client:/certs/docker/client
+    depends_on:
+      - rabbitmq
+      - redis
+      - docker
+      - registry.loc
     command: >
       bash -c "mkdir -p /var/log/drups
       && touch /var/log/drups/worker.log
@@ -34,6 +39,11 @@ services:
       - "4000"
     volumes:
       - ./${APPLICATION_DIR}:/var/www/html
+    depends_on:
+      - engine
+      - redis
+      - postgres
+      - traefik
     command: bash -c 'yarn run dev || tail -F /dev/null'
 
   application_front:
@@ -47,6 +57,9 @@ services:
       - "3000"
     volumes:
       - ./${APPLICATION_DIR}:/var/www/html
+    depends_on:
+      - application_back
+      - traefik
     command: bash -c 'yarn run dev || tail -F /dev/null'
 
   rabbitmq:
@@ -58,6 +71,8 @@ services:
     labels:
       - "traefik.http.services.${PROJECT_NAME}_rabbitmq_management_ui.loadbalancer.server.port=15672"
       - "traefik.http.routers.${PROJECT_NAME}_rabbitmq_management_ui.rule=Host(`${RABBITMQ_URL}`)"
+    depends_on:
+      - traefik
 
   redis:
     image: redis:$REDIS_TAG
@@ -81,6 +96,8 @@ services:
       - ./certs/docker/ca:/certs/ca
       - ./certs/docker/client:/certs/client
       - ./certs/registry/crt:/etc/docker/certs.d/registry.loc
+    depends_on:
+      - registry.loc
 
   registry.loc:
     image: registry:$DOCKER_REGISTRY_TAG
