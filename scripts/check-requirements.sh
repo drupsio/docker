@@ -38,7 +38,7 @@ echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking kubectl...\n${
 check_command "kubectl"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Minikube...\n${COLOR_NONE}"
+echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking minikube...\n${COLOR_NONE}"
 check_command "minikube" 1
 
 CURRENT_STEP=$((CURRENT_STEP + 1))

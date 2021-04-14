@@ -26,6 +26,13 @@ Development Docker stack for Drups.io
 - `Docker Compose`
 - `GNU Make`
 - `OpenSSL`
+- `kubectl`
+- `minikube (Recommended)`
+
+You need to have a running [Kubernetes](https://kubernetes.io/) Cluster on your machine. We recommend using
+[minikube](https://minikube.sigs.k8s.io). _minikube is local Kubernetes, focusing on making it easy to learn 
+and develop for Kubernetes._ You can install minikube using the 
+[official guide](https://minikube.sigs.k8s.io/docs/start/).
 
 ## Installation
 
