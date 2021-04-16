@@ -13,10 +13,14 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=2
+TOTAL_STEPS=3
 CURRENT_STEP=0
 
 echo -e "${COLOR_GREEN}\nRunning pre-start steps...${COLOR_NONE}\n"
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Kubernetes Cluster...\n${COLOR_NONE}"
+check_k8s_cluster
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Traefik port...\n${COLOR_NONE}"

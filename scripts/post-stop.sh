@@ -11,19 +11,12 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "${DIR}"/styles.env
-source "${DIR}"/functions.sh
 
-TOTAL_STEPS=2
+TOTAL_STEPS=1
 CURRENT_STEP=0
 
-echo -e "${COLOR_GREEN}\nRunning post-start steps...${COLOR_NONE}\n"
+echo -e "${COLOR_GREEN}\nRunning post-stop steps...${COLOR_NONE}\n"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Running Kubernetes Dashboard...\n\v${COLOR_NONE}"
-run_k8s_dashboard
-
-CURRENT_STEP=$((CURRENT_STEP + 1))
-echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Updating hosts...\n\v${COLOR_NONE}"
-make update-hosts
-
-sh "${DIR}/info.sh"
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Stopping Kubernetes Dashboard...\n\v${COLOR_NONE}"
+netstat -tulpn | grep :8181 | awk '/LISTEN/ { print $7 }' | cut -d/ -f1 | xargs kill -9 || echo -e "${COLOR_YELLOW}\nNothing to stop.${COLOR_NONE}\n"
