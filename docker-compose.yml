@@ -106,9 +106,13 @@ services:
       REGISTRY_HTTP_ADDR: 0.0.0.0:443
       REGISTRY_HTTP_TLS_CERTIFICATE: /certs/crt/ca.crt
       REGISTRY_HTTP_TLS_KEY: /certs/key/ca.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
     volumes:
       - ./certs/registry/crt:/certs/crt
       - ./certs/registry/key:/certs/key
+      - ./auth/registry:/auth
     expose:
       - "443"
 

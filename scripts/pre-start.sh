@@ -23,8 +23,9 @@ echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Kubernetes Clu
 check_k8s_cluster
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Traefik port...\n${COLOR_NONE}"
+echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Traefik ports...\n${COLOR_NONE}"
 check_port "80"
+check_port "8080"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Checking Kubernetes Dashboard port...\n${COLOR_NONE}"

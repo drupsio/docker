@@ -14,10 +14,11 @@ source "${DIR}"/../.env
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=7
+TOTAL_STEPS=8
 CURRENT_STEP=0
 
 CERTS_DIR="${DIR}"/../certs
+AUTH_DIR="${DIR}"/../auth
 
 echo -e "${COLOR_GREEN} Running pre-install steps...${COLOR_NONE}\n"
 
@@ -55,6 +56,19 @@ kubectl delete -n kube-system daemonset registry-ca
 kubectl delete -n kube-system secret registry-ca
 kubectl create secret generic registry-ca --namespace kube-system --from-file=registry-ca="${CERTS_DIR}"/registry/crt/ca.crt
 kubectl create -f "${DIR}"/../environments/registry/registry-ca-ds.yaml
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Creating authentication file for Local Docker Registry...\n\v${COLOR_NONE}"
+mkdir -p "${AUTH_DIR}/registry"
+docker run \
+  --entrypoint htpasswd \
+  registry:2.7.0 -Bbn "${DOCKER_REGISTRY_USER}" "${DOCKER_REGISTRY_PASS}" > "${AUTH_DIR}/registry/htpasswd"
+
+# Create K8S Secret with Docker Registry credentials.
+kubectl delete -n default secret regcred
+kubectl create secret docker-registry regcred --docker-server=registry.loc \
+  --docker-username="${DOCKER_REGISTRY_USER}" \
+  --docker-password="${DOCKER_REGISTRY_PASS}"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Starting containers...\n\v${COLOR_NONE}"
