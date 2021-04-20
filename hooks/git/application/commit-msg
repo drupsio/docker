@@ -8,4 +8,5 @@
 #
 # Written by Temuri Takalandze <temo@drups.io>, April 2021
 
-docker-compose exec --workdir /var/www/html application_back sh -c '.husky/commit-msg'
+docker exec -i "$(docker ps --filter name="_application_back" --format "{{ .ID }}")" \
+  sh -c 'cd  /var/www/html && .husky/commit-msg'
