@@ -43,6 +43,14 @@ stop:
 	@docker-compose stop
 	@./scripts/post-stop.sh
 
+## restart	:	Restart the containers.
+##			You can optionally pass an argument with the service name to restart specific container
+##			restart engine			: Restart `engine` container.
+##			restart engine application	: Restart `engine` and `application` containers.
+.PHONY: restart
+restart:
+	@docker-compose restart $(filter-out $@,$(MAKECMDGOALS))
+
 ## prune		:	Remove containers and their volumes.
 ##			You can optionally pass an argument with the service name to prune single container
 ##			prune engine		 : Prune `engine` container and remove its volumes.
@@ -69,7 +77,7 @@ shell:
 	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'engine')' --format "{{ .ID }}") bash
 
 ## logs		:	View containers logs.
-##			You can optinally pass an argument with the service name to limit logs
+##			You can optionally pass an argument with the service name to limit logs
 ##			logs engine		: View `engine` container logs.
 ##			logs engine application	: View `engine` and `application` containers logs.
 .PHONY: logs
@@ -80,11 +88,6 @@ logs:
 .PHONY: install
 install:
 	@./scripts/install.sh
-
-## restart-engine	:	Restart the celery process inside of `engine` container.
-.PHONY: restart-engine
-restart-engine:
-	@./scripts/engine/restart.sh
 
 ## update-hosts	:	Write container IPs to /etc/hosts.
 .PHONY: update-hosts
