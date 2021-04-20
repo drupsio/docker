@@ -14,7 +14,7 @@ source "${DIR}"/../.env
 source "${DIR}"/styles.env
 source "${DIR}"/functions.sh
 
-TOTAL_STEPS=8
+TOTAL_STEPS=9
 CURRENT_STEP=0
 
 CERTS_DIR="${DIR}"/../certs
@@ -37,6 +37,12 @@ clone_repository "${ENGINE_GIT_REPO}" "${ENGINE_GIT_BRANCH}" "${ENGINE_DIR}"
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Cloning Application repository...\n\v${COLOR_NONE}"
 clone_repository "${APPLICATION_GIT_REPO}" "${APPLICATION_GIT_BRANCH}" "${APPLICATION_DIR}"
+
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Installing git-hooks...\n\v${COLOR_NONE}"
+ln -sf "${DIR}/../hooks/git/engine/pre-commit" "${DIR}/../${ENGINE_DIR}/.git/hooks/pre-commit"
+ln -sf "${DIR}/../hooks/git/application/pre-commit" "${DIR}/../${APPLICATION_DIR}/.git/hooks/pre-commit"
+ln -sf "${DIR}/../hooks/git/application/commit-msg" "${DIR}/../${APPLICATION_DIR}/.git/hooks/commit-msg"
 
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo -e "\n\v${COLOR_BLUE}[${CURRENT_STEP}/${TOTAL_STEPS}] Creating certificates for Local Docker Registry...\n\v${COLOR_NONE}"
