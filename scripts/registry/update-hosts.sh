@@ -30,3 +30,8 @@ if [ ! -z "$MATCH" ]; then
 else
   echo "$HOST_ENTRY" | sudo tee -a /etc/hosts >/dev/null
 fi
+
+# Update in Minikube node.
+if command -v minikube &>/dev/null; then
+  minikube ssh sudo "bash -c 'echo ${HOST_ENTRY} >> /etc/hosts'"
+fi
